@@ -1,1 +1,1 @@
-console.log("i am loading")
+$(document).foundation()
