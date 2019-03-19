@@ -1,16 +1,17 @@
 #nav {
-    background-color:#b71c1c ;
+    background-color: #b71c1c;
 }
 
 #side {
-    background-color:pink;
+    background-color: pink;
 }
 
 #main {
-    border:solid 1px black;
-    background-color:#4a148c;
-    
+    border: solid 1px black;
+    background-color: #4a148c;
+
 }
 
-
-
+#fuck {
+    width: 100%;
+}
