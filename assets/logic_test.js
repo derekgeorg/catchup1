@@ -15,9 +15,6 @@
 
 // this line below makes a directory in database called groupsRef but we need a variable instead of a set string because it'll be a random ID
  var groupsRef = database.ref("/groups");
- var connectedRef = database.ref(".info/connected");
-
-
 
 $( document ).ready(function() {
 
