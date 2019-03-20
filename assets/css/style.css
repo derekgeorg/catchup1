@@ -6,12 +6,12 @@
     height: auto;
 }
 
-#map-container {
+/* #map-container {
     border: solid 1px black;
     width:100%;
     height:100%;
     text-align:center;
-}
+} */
 
 #message-container {
     margin-top: auto;
@@ -35,6 +35,11 @@
     color: white;
     background-color: #ff0064;
 }
+
+/* .submit_button {
+    color: white;
+    background-color: #ff0064;
+} */
 a {
     color: #ff0064;
 }
