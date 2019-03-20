@@ -19,7 +19,6 @@ $( document ).ready(function() {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
     });
-
     $("#checkInButton").on("click", function(e){
         e.preventDefault();
         
