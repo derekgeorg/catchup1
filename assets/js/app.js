@@ -19,17 +19,6 @@ $( document ).ready(function() {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
     });
-    // var varName = "variableNamefromInputField";
-    // // join button on click, take name and group name. set name to varName.
-    
-    // // var ulisesPosition = database.ref("/groups/userRecord").push({groupID: "birthday", name: "Ulises", posx: 343, posy: 3434});
-
-    // ulisesPosition.on("value", function(snap){
-    //     let memberData = snap.val();
-    //     console.log(memberData.groupID);
-    //     ulisesPosition.set({groupID: memberData.groupID, name: memberData.name, posx: 3453453, posy: 3434})
-    // });
-
     $("#checkInButton").on("click", function(e){
         e.preventDefault();
         
