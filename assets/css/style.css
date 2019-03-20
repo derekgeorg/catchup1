@@ -1,20 +1,9 @@
-#nav {
-    background-color:#b71c1c ;
-}
 #topLogo {
-    height: 20px;
+    height: 45px;
 
 }
 #mapPlaceHolder {
     height: auto;
-}
-
-#side {
-    background-color:pink;
-}
-
-#main {
-    background-color:#4a148c;
 }
 
 #map-container {
