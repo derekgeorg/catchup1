@@ -1,3 +1,5 @@
+$(document).foundation();
+
 var time = moment();
 
 function newFunction() {
