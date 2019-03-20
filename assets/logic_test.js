@@ -10,59 +10,60 @@
 
  var database = firebase.database();
 
-// whatever ID we generater, we want to set a directory in datase with that ID which holds memebers and positions
-
-
-// this line below makes a directory in database called groupsRef but we need a variable instead of a set string because it'll be a random ID
- var groupsRef = database.ref("/groups");
-
 $( document ).ready(function() {
 
-    $("#createButton").on("click", function(){
+    var groupsHolderRef = database.ref("/groups");
+    var latitude;
+    var longitude;
+    navigator.geolocation.getCurrentPosition(function(position) {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+    });
 
+    $("#checkInButton").on("click", function(e){
+        e.preventDefault();
         
-        if ("geolocation" in navigator){
-            // let name = $("#nameField").val();
-            var groupID =  Math.floor(Math.random()*1000000);
-            console.log(groupID);
-            groupID = database.ref("/groups/" + groupID);
-            
-            navigator.geolocation.getCurrentPosition(function(position) {
+        let name = $("#name").val();
+        let group = $("#group").val();
+        console.log(name);
+        console.log(group);
 
-                console.log(position);
-                let latitude = position.coords.latitude;
-                let longitude = position.coords.longitude;
-                console.log("latitude: " + latitude);
-                console.log("longitude: " + longitude);
-            
-            });
-            
+
+        if ("geolocation" in navigator){
+
+            console.log("latitude: " + latitude);
+            console.log("longitude: " + longitude);
+
+            var positionRef = database.ref("/groups").push({groupID: group, name: name, posx: longitude, posy: latitude}).key;
+            console.log(positionRef);
 
         }
         else {
             console.log("no navigation ability")
+            window.location.replace = "geo.html"
         }
     
     });
     
     
 
-    $("#joinButton").on("click", function(){
+    // $("#joinButton").on("click", function(e){
+    //     e.preventDefault();
 
-        if ("geolocation" in navigator){
+    //     if ("geolocation" in navigator){
 
-            // let name = $("#nameField").val();
-            let groupID = $("#groupIDField").val();
-            groupdID = groupsRef.ref("/" + groupID);
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-            console.log("latitude: " + latitude);
-            console.log("longitude: " + longitude);
-        }
-        else {
-            console.log("geolocation not available")
-        }
-    });
+    //         // let name = $("#nameField").val();
+    //         let groupID = $("#groupIDField").val();
+    //         groupdID = groupsRef.ref("/" + groupID);
+    //         let latitude = position.coords.latitude;
+    //         let longitude = position.coords.longitude;
+    //         console.log("latitude: " + latitude);
+    //         console.log("longitude: " + longitude);
+    //     }
+    //     else {
+    //         console.log("geolocation not available")
+    //     }
+    // });
 
 });
 
@@ -81,38 +82,3 @@ $( document ).ready(function() {
         con.onDisconnect().remove();
     }
     });
-  
-//how to member list
-
-
-var group = {
-
-    member: {
-        name: "bob",
-        latitude: "numbers",
-        longitude: "numbers"
-    }
-,
-    
-    member: {
-        name: "bob",
-        latitude: "numbers",
-        longitude: "numbers"
-    }
-,
-    
-    member: {
-        name: "bob",
-        latitude: "numbers",
-        longitude: "numbers"
-    }
-,
-    
-    member: {
-        name: "bob",
-        latitude: "numbers",
-        longitude: "numbers"
-    }
-
-
-}
