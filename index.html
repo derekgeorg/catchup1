@@ -1,171 +1,102 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation for Sites</title>
-    <link rel="stylesheet" href="assets/css/foundation.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-  </head>
-  <body>
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <h1>Welcome to Foundation</h1>
-        </div>
-      </div>
 
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <div class="callout">
-            <h3>We&rsquo;re stoked you want to try Foundation! </h3>
-            <p>To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
-            <p>Once you've exhausted the fun in this document, you should check out:</p>
-            <div class="grid-x grid-padding-x">
-              <div class="large-4 medium-4 cell">
-                <p><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</p>
-              </div>
-              <div class="large-4 medium-4 cell">
-                <p><a href="http://zurb.com/university/code-skills">Foundation Code Skills</a><br />These online courses offer you a chance to better understand how Foundation works and how you can master it to create awesome projects.</p>
-              </div>
-              <div class="large-4 medium-4 cell">
-                <p><a href="http://foundation.zurb.com/forum">Foundation Forum</a><br />Join the Foundation community to ask a question or show off your knowledge.</p>
-              </div>
-            </div>
-            <div class="grid-x grid-padding-x">
-              <div class="large-4 medium-4 medium-push-2 cell">
-                <p><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</p>
-              </div>
-              <div class="large-4 medium-4 medium-pull-2 cell">
-                <p><a href="https://twitter.com/ZURBfoundation">@zurbfoundation</a><br />Ping us on Twitter if you have questions. When you build something with this we'd love to see it (and send you a totally boss sticker).</p>
-              </div>
-            </div>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatchUp!</title>
+  <link rel="shortcut icon" href="assets/logo_favicons.ico/favicon-16x16.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  
+  <link rel="stylesheet" href="assets/css/foundation.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!--Top menu bar-->
+  <div class="flex-grid">
+    <div class="row">
+      <div class="column large-12">
+        <div class="top-bar" style="background-color: white">
+          <div class="top-bar-left">
+            <ul class="menu" style="background-color: white">
+              <li class="menu-text" style="background-color: white" id="menu-text" ><img id="topLogo" src="assets/logos/logo_w_wordsmith.png" alt="CatchUp! Logo"></li>
+              <!-- <li class="menu-button" style="background-color: lightgrey" id="menu-button-first"><a href="#0">Join</a></li>
+              <li class="menu-button" style="background-color: lightgrey" id="menu-button-second"><a href="#0">Create</a></li> -->
+            </ul>
+          </div>
+          <div class="top-bar-right">
           </div>
         </div>
       </div>
+   </div>
 
-      <div class="grid-x grid-padding-x">
-        <div class="large-8 medium-8 cell">
-          <h5>Here&rsquo;s your basic grid:</h5>
-          <!-- Grid Example -->
+  <!--Left/Members Div -->
+  <div class="row align-right align-container">
 
-          <div class="grid-x grid-padding-x">
-            <div class="large-12 cell">
-              <div class="primary callout">
-                <p><strong>This is a twelve cell section in a grid-x.</strong> Each of these includes a div.callout element so you can see where the cell are - it's not required at all for the grid.</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid-x grid-padding-x">
-            <div class="large-6 medium-6 cell">
-              <div class="primary callout">
-                <p>Six cell</p>
-              </div>
-            </div>
-            <div class="large-6 medium-6 cell">
-              <div class="primary callout">
-                <p>Six cell</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid-x grid-padding-x">
-            <div class="large-4 medium-4 small-4 cell">
-              <div class="primary callout">
-                <p>Four cell</p>
-              </div>
-            </div>
-            <div class="large-4 medium-4 small-4 cell">
-              <div class="primary callout">
-                <p>Four cell</p>
-              </div>
-            </div>
-            <div class="large-4 medium-4 small-4 cell">
-              <div class="primary callout">
-                <p>Four cell</p>
-              </div>
-            </div>
-          </div>
-
-          <hr />
-
-          <h5>We bet you&rsquo;ll need a form somewhere:</h5>
-          <form>
-            <div class="grid-x grid-padding-x">
-              <div class="large-12 cell">
-                <label>Input Label</label>
-                <input type="text" placeholder="large-12.cell" />
-              </div>
-            </div>
-            <div class="grid-x grid-padding-x">
-              <div class="large-4 medium-4 cell">
-                <label>Input Label</label>
-                <input type="text" placeholder="large-4.cell" />
-              </div>
-              <div class="large-4 medium-4 cell">
-                <label>Input Label</label>
-                <input type="text" placeholder="large-4.cell" />
-              </div>
-              <div class="large-4 medium-4 cell">
-                <div class="grid-x">
-                  <label>Input Label</label>
-                  <div class="input-group">
-                    <input type="text" placeholder="small-9.cell" class="input-group-field" />
-                    <span class="input-group-label">.com</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="grid-x grid-padding-x">
-              <div class="large-12 cell">
-                <label>Select Box</label>
-                <select>
-                  <option value="husker">Husker</option>
-                  <option value="starbuck">Starbuck</option>
-                  <option value="hotdog">Hot Dog</option>
-                  <option value="apollo">Apollo</option>
-                </select>
-              </div>
-            </div>
-            <div class="grid-x grid-padding-x">
-              <div class="large-6 medium-6 cell">
-                <label>Choose Your Favorite</label>
-                <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Radio 1</label>
-                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Radio 2</label>
-              </div>
-              <div class="large-6 medium-6 cell">
-                <label>Check these out</label>
-                <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
-                <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
-              </div>
-            </div>
-            <div class="grid-x grid-padding-x">
-              <div class="large-12 cell">
-                <label>Textarea Label</label>
-                <textarea placeholder="small-12.cell"></textarea>
-              </div>
-            </div>
-          </form>
+    
+    <div class="column large-3 small-3">
+        <div style="min-height: 192px; max-width: 200px;"> 
+            
+            <button type="button" style="margin-top:20px;" class="submit button" id="CreateButton">Check In</button>
+                <label id="userName">
+                    <input type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
+                </label>
+                <label id="groupName">
+                    <input type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
+                </label>
+            
+        
         </div>
+        <div class="is-drilldown" style="min-height: 192px; max-width: 200px;">
+      <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
+        <li>
+          <a href="#0">Group</a>
+          <ul class="vertical menu" id="m2">
+            <li>
+              <a href="#0">Members List</a>
+              <ul class="vertical menu" id="m3">
+                <li><a href="#0">Nic</a></li>
+                <li><a href="#0">Ryan</a></li>
+                <li><a href="#0">Pinkie</a></li>
+                <li><a href="#0">Jameel</a></li>
+              </ul>
+    </div>
+  </div>
 
-        <div class="large-4 medium-4 cell">
-          <h5>Try one of these buttons:</h5>
-          <p><a href="#" class="button">Simple Button</a><br/>
-          <a href="#" class="success button">Success Btn</a><br/>
-          <a href="#" class="alert button">Alert Btn</a><br/>
-          <a href="#" class="secondary button">Secondary Btn</a></p>
-          <div class="callout">
-            <h5>So many components, girl!</h5>
-            <p>A whole kitchen sink of goodies comes with Foundation. Check out the docs to see them all, along with details on making them your own.</p>
-            <a href="http://foundation.zurb.com/sites/docs/" class="small button">Go to Foundation Docs</a>
-          </div>
-        </div>
+<!--Right/Map Div-->
+    <div class="column large-9">
+      <div class="mapContainer" id="map-container">
+        <img id="mapPlaceHolder" src="assets/map_placeholder.png">
       </div>
     </div>
+  </div>
+<!--Bottom Message form-->
+  <!-- <div class="row" style="margin: 20px;">
+    <div class="column large-12">
+      <div class="input-group">
+        <span class="input-group-label">Message</span>
+        <input class="input-group-field" type="url">
+        <div class="input-group-button">
+          <input type="send" class="button" value="Send" id="sendButton">
+        </div>
+      </div> -->
+      <!--Clock tracking how long first member has been in group-->
+      <!-- <div id="momentClock">loading...</div>
+    </div> -->
+  </div>
+  <script src="assets/js/vendor/jquery.js"></script>
+  <script src="assets/js/vendor/what-input.js"></script>
+  <script src="assets/js/vendor/foundation.js"></script>
+  <script src="assets/js/app.js"></script>
 
-    <script src="assets/js/vendor/jquery.js"></script>
-    <script src="assets/js/vendor/what-input.js"></script>
-    <script src="assets/js/vendor/foundation.js"></script>
-    <script src="assets/js/app.js"></script>
-  </body>
+
+  <footer class="footer">   
+      <p style="margin-top: -10px;">
+       Copyright &copy; CatchUp! 2019
+      </p>
+</footer>
+</body>
+
 </html>
