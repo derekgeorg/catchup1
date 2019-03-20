@@ -5,36 +5,37 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatchUP Main Menue</title>
+    <title>CatchUp! Login</title>
     <link rel="stylesheet" href="assets/css/foundation.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/logo_favicons.ico/favicon-16x16.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </head>
 
 <body>
+    <!--Top Menu Bar-->
 <div class="flex-grid">
         <div class="row">
             <div class="column large-12">
-
-
-                <div class="top-bar">
-
+                <div class="top-bar" style="background-color: white">
                     <div class="top-bar-left">
-                        <ul class="menu">
-                            <li class="menu-text" id="menu-text">Catch Up!</li>
-                            <li class="menu-button" id="menu-button-first"><a href="#0">Join</a></li>
-                            <li class="menu-button" id="menu-button-second"><a href="#0">Create</a></li>
+                        <ul class="menu" style="background-color: white">
+                            <li class="menu-text" style="background-color: white" id="menu-text"><img id="topLogo" src="assets/logos/logo_w_wordsmith.png" alt="CatchUp! Logo"></li>
+                            <li class="menu-button" style="background-color: white" id="menu-button-first"><a href="#0">Join</a></li>
+                            <li class="menu-button" style="background-color: white" id="menu-button-second"><a href="#0">Create</a></li>
                         </ul>
                     </div>
-
-                    <div class="top-bar-right">
+                   <div class="top-bar-right">
                     </div>
                 </div>
-
             </div>
         </div>
     
     <!--Top bar close-->
 
+    
     <div class="row">
 
         <div class="column large-5 medium-5 small-5">
@@ -50,6 +51,21 @@
         
     </div>
 
+    <div class="row">
+
+            <div class="column large-5 medium-5 small-5">
+            </div>
+    
+            <div class="column large-2 medium-2 small-2">
+    
+                    <button type="button" style="margin-top:20px;" class="submit button" id="JoinButton">Join</button>
+            </div>
+    
+            <div class="column large-5 medium-5 small-5">
+            </div>
+            
+    </div>
+
     <!--top button ends here-->
 
     <div class="row">
@@ -59,8 +75,8 @@
 
         <div class="column large-8">
 
-            <label>Id shows here!
-                <input type="text" placeholder="(512)-000-0000" aria-describedby="exampleHelpText">
+            <label>
+                <input type="text" placeholder="Group ID" aria-describedby="exampleHelpText">
             </label>
         </div>
 
@@ -70,24 +86,19 @@
     </div>
     <!--search bar ends here-->
 
-    <div class="row">
-
-            <div class="column large-5">
-            </div>
     
-            <div class="column large-2">
-    
-                    <button type="button" style="margin-top:20px;" class="submit button" id="JoinButton">Join</button>
-            </div>
-    
-            <div class="column large-5">
-            </div>
-            
-        </div>
 </div>
+
+
 
     <script src="assets/js/vendor/jquery.js"></script>
     <script src="assets/js/vendor/what-input.js"></script>
     <script src="assets/js/vendor/foundation.js"></script>
     <script src="assets/js/app.js"></script>
+
+    <footer class="footer">   
+            <p style="margin-top: -10px;">
+             Copyright &copy; CatchUp! 2019
+            </p>
+      </footer>
 </body>

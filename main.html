@@ -5,42 +5,40 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Foundation for Sites</title>
+  <title>CatchUp!</title>
   <link rel="stylesheet" href="assets/css/foundation.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="shortcut icon" href="assets/logo_favicons.ico/favicon-16x16.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <script src="assets/js/app.js"></script>
 </head>
 
 <body>
-
+  <!--Top menue bar-->
   <div class="flex-grid">
     <div class="row">
       <div class="column large-12">
-
-
-        <div class="top-bar">
-
+        <div class="top-bar" style="background-color: white">
           <div class="top-bar-left">
-            <ul class="menu">
-              <li class="menu-text" id="menu-text">Catch Up!</li>
-              <li class="menu-button" id="menu-button-first"><a href="#0">Join</a></li>
-              <li class="menu-button" id="menu-button-second"><a href="#0">Create</a></li>
+            <ul class="menu" style="background-color: white">
+              <li class="menu-text" style="background-color: white" id="menu-text" ><img id="topLogo" src="assets/logos/logo_w_wordsmith.png" alt="CatchUp! Logo"></li>
+              <li class="menu-button" style="background-color: white" id="menu-button-first"><a href="#0">Join</a></li>
+              <li class="menu-button" style="background-color: white" id="menu-button-second"><a href="#0">Create</a></li>
             </ul>
           </div>
-
           <div class="top-bar-right">
           </div>
         </div>
-
       </div>
       <!--top bar close-->
-
-
     </div>
+  
   </div>
-  <!--row/col close-->
 
+  <!--Left/Members Div -->
   <div class="row align-right align-container">
-    <div class="column large-3">
+    <div class="column large-3" style="background-color: #00ffbb">
 
       <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
         <li>
@@ -53,50 +51,40 @@
                 <li><a href="#0">Ryan</a></li>
                 <li><a href="#0">Pinkie</a></li>
                 <li><a href="#0">Jameel</a></li>
-                
               </ul>
-
-           
-       
-
-
     </div>
 
-
+<!--Right/Map Div-->
     <div class="column large-9">
-
       <div class="mapContainer" id="map-container">
-        <h1>Map Goes Here</h1>
+        <img id="mapPlaceHolder" src="assets/map_placeholder.png">
       </div>
-
     </div>
   </div>
-
-
-
-  <div class="row">
+<!--Bottom Message form-->
+  <div class="row" style="margin: 20px;">
     <div class="column large-12">
-
       <div class="input-group">
-
         <span class="input-group-label">Message</span>
         <input class="input-group-field" type="url">
-
         <div class="input-group-button">
-          <input type="send" class="button" value="Send" id="SendButton">
+          <input type="send" class="button" value="Send" id="sendButton">
         </div>
-
       </div>
-
+      <!--Clock tracking how long first member has been in group-->
+      <div id="momentClock">loading...</div>
     </div>
   </div>
-
-
-
   <script src="assets/js/vendor/jquery.js"></script>
   <script src="assets/js/vendor/what-input.js"></script>
   <script src="assets/js/vendor/foundation.js"></script>
   <script src="assets/js/app.js"></script>
+  
+  <footer class="footer">   
+      <p style="margin-top: -10px;">
+       Copyright &copy; CatchUp! 2019
+      </p>
+</footer>
 </body>
 
 </html>

@@ -15,3 +15,15 @@
 #fuck {
     width: 100%;
 }
+
+#momentClock {
+    height: 50px;
+    width: 70%;
+    text-align: center;
+    border-radius: 20px;
+    background: #ff0064;
+    color: white;
+    font-size: 100px;
+    box-shadow: 0 0 7px #222;
+    text-shadow: 00 3px #fff;
+}
