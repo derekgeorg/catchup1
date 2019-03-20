@@ -1,5 +1,9 @@
 $(document).foundation();
 
+//Creating a call to OpenWeatherAPI
+//pull temperature based on geographic coordinates provided by location
+
+
 var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
     authDomain: "ulisesproject-9cbd7.firebaseapp.com",
