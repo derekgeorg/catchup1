@@ -36,6 +36,11 @@
     background-color: #ff0064;
 }
 
+p {
+    color: lightgray;
+    margin-top: 20px;
+    margin-right: 113px;
+}
 /* .submit_button {
     color: white;
     background-color: #ff0064;
@@ -66,3 +71,4 @@ footer {
     color: white;
     background-color: #ff0064;
 }
+

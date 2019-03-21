@@ -20,50 +20,47 @@
 
 $( document ).ready(function() {
 
-    $("#createButton").on("click", function(){
+    var groupsHolderRef = database.ref("/groups");
+    var latitude;
+    var longitude;
+    navigator.geolocation.getCurrentPosition(function(position) {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+    });
+    // var varName = "variableNamefromInputField";
+    // // join button on click, take name and group name. set name to varName.
+    
+    // // var ulisesPosition = database.ref("/groups/userRecord").push({groupID: "birthday", name: "Ulises", posx: 343, posy: 3434});
 
+    // ulisesPosition.on("value", function(snap){
+    //     let memberData = snap.val();
+    //     console.log(memberData.groupID);
+    //     ulisesPosition.set({groupID: memberData.groupID, name: memberData.name, posx: 3453453, posy: 3434})
+    // });
+
+    $("#checkInButton").on("click", function(e){
+        e.preventDefault();
         
-        if ("geolocation" in navigator){
-            // let name = $("#nameField").val();
-            var groupID =  Math.floor(Math.random()*1000000);
-            console.log(groupID);
-            groupID = database.ref("/groups/" + groupID);
-            
-            navigator.geolocation.getCurrentPosition(function(position) {
+        let name = $("#name").val();
+        let group = $("#group").val();
+        console.log(name);
+        console.log(group);
 
-                console.log(position);
-                let latitude = position.coords.latitude;
-                let longitude = position.coords.longitude;
-                console.log("latitude: " + latitude);
-                console.log("longitude: " + longitude);
-            
-            });
-            
+
+        if ("geolocation" in navigator){
+
+            console.log("latitude: " + latitude);
+            console.log("longitude: " + longitude);
+
+            var positionRef = database.ref("/groups").push({groupID: group, name: name, posx: longitude, posy: latitude}).key;
+            console.log(positionRef);
 
         }
         else {
             console.log("no navigation ability")
+            window.location.replace = "geo.html"
         }
     
-    });
-    
-    
-
-    $("#joinButton").on("click", function(){
-
-        if ("geolocation" in navigator){
-
-            // let name = $("#nameField").val();
-            let groupID = $("#groupIDField").val();
-            groupdID = groupsRef.ref("/" + groupID);
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-            console.log("latitude: " + latitude);
-            console.log("longitude: " + longitude);
-        }
-        else {
-            console.log("geolocation not available")
-        }
     });
 
 });
