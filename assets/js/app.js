@@ -1,5 +1,4 @@
-$(document).foundation();
-
+// Bringing in my realtime database credentials to link to the page
 var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
     authDomain: "ulisesproject-9cbd7.firebaseapp.com",
@@ -10,77 +9,102 @@ var config = {
   };
   firebase.initializeApp(config);
 
- var database = firebase.database();
+var database = firebase.database();
+
 
 $( document ).ready(function() {
-
+    // Creates a subdirectory 'groups' in root of database 
     var groupsHolderRef = database.ref("/groups");
+    var positionRef;
     var latitude;
     var longitude;
-    navigator.geolocation.getCurrentPosition(function(position) {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-    });
 
-    $("#checkInButton").on("click", function(e){
+    // When clicking the check in button...
+    $("#checkIn").on("click", function(e){
+        // Stop the page from reloading
         e.preventDefault();
         
+        // Take the values from the name field and the group field and assign them to name and group respectively
         let name = $("#name").val();
         let group = $("#group").val();
         console.log(name);
         console.log(group);
+        // Clear out the text field after the input has been gathered
+        $("input.name").val("");
+        $("input.group").val("");
 
+        // Browser geolocation API asks for permission to get location data.
+        // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
+        navigator.geolocation.getCurrentPosition(function(position) {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+        
+            if ("geolocation" in navigator){
+                // If the user accepted location services, write their name, group, and position in the database.
+                // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                positionRef = database.ref("/groups").push({groupID: group, name: name, x: longitude, y: latitude}).key;
+                console.log(positionRef);
 
-        if ("geolocation" in navigator){
+                example = firebase.database().ref().child('groups') ;
+                console.log(example);
+    
+            }
+            else {
+                // No navigation ability will notify the user
+                console.log("no navigation ability")
+                // window.location.replace = "geo.html"
+            }
+        });
 
-            console.log("latitude: " + latitude);
-            console.log("longitude: " + longitude);
-
-            var positionRef = database.ref("/groups").push({groupID: group, name: name, posx: longitude, posy: latitude}).key;
-            console.log(positionRef);
-
-        }
-        else {
-            console.log("no navigation ability")
-            window.location.replace = "geo.html"
-        }
+        
     
     });
     
-    
+    // When the update button is clicked...
+    $("#update").on("click", function(e){
+        // Stop the page from reloading
+        e.preventDefault();
 
-    // $("#joinButton").on("click", function(e){
-    //     e.preventDefault();
+        // Take the values from the name field and the group field and assign them to name and group respectively
+        let name = $("#name").val();
+        let group = $("#group").val();
 
-    //     if ("geolocation" in navigator){
+        // Clear out the text field after the input has been gathered
+        $("input.name").val("");
+        $("input.group").val("");
 
-    //         // let name = $("#nameField").val();
-    //         let groupID = $("#groupIDField").val();
-    //         groupdID = groupsRef.ref("/" + groupID);
-    //         let latitude = position.coords.latitude;
-    //         let longitude = position.coords.longitude;
-    //         console.log("latitude: " + latitude);
-    //         console.log("longitude: " + longitude);
-    //     }
-    //     else {
-    //         console.log("geolocation not available")
-    //     }
-    // });
+        // Obtain current coordinates to replace old coordinates in the database
+        navigator.geolocation.getCurrentPosition(function(position) {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+        
+
+        //**here if positionRef is not set initially (i.e. the page is reloaded and no check in has been made) will not update**
+        //**we need authentication and uniqueness**
+        // Similar to the check in function, data is taken and stored in the database.
+        // Unlike check in, update uses the positionRef to set the data (overwriting and rewriting all of the data) without creating an 
+        // addtional and superfluous unique random ID from database
+        database.ref("/groups/" + positionRef).set({groupID: group, name: name, x: longitude, y: latitude})
+
+            // Experimenting with trying to get the data in the positionRef in a parseable object form upon a value delta
+        database.ref("/groups/" + positionRef).once("value")
+            .then(function(snapshot) {
+                console.log(snapshot.val());
+            });
+
+        if (name in database.ref("/groups/" + positionRef) ){
+            console.log("yea it's here alright");
+        }
+        else {
+            console.log("nope");
+            console.log(name);
+            console.log(group);
+        }
+        
+        });
 
 });
 
 
-    var connectedRef = database.ref(".info/connected");
-
-    // When the client's connection state changes...
-    connectedRef.on("value", function(snap) {
-
-    // If they are connected..
-    if (snap.val()) {
-
-        // Add user to the connections list.
-        var con = groupsRef.push(true);
-        // Remove user from the connection list when they disconnect.
-        con.onDisconnect().remove();
-    }
-    });
+})

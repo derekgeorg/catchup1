@@ -1,47 +1,99 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
     <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatchUP Main Menu</title>
+    <link rel="stylesheet" href="assets/css/foundation.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
 
-
-    <script src="assets/logic_test.js"></script>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map">
-    <button id="createButton"> click me!</button>
-    <button id="joinButton"> click me!</button>
-
-
+<body>
+ <!--Top menu bar-->
+ <div class="flex-grid">
+  <div class="row">
+    <div class="column large-12">
+      <div class="top-bar" style="background-color: white">
+        <div class="top-bar-left">
+          <ul class="menu" style="background-color: white">
+            <li class="menu-text" style="background-color: white" id="menu-text" ><img id="topLogo" src="assets/logos/logo_w_wordsmith.png" alt="CatchUp! Logo"></li>
+            <!-- <li class="menu-button" style="background-color: lightgrey" id="menu-button-first"><a href="#0">Join</a></li>
+            <li class="menu-button" style="background-color: lightgrey" id="menu-button-second"><a href="#0">Create</a></li> -->
+          </ul>
+        </div>
+        <div class="top-bar-right">
+        </div>
+      </div>
     </div>
+ </div>
 
-    <script>
-      // var map;
-      // function initMap() {
-      //   map = new google.maps.Map(document.getElementById('map'), {
-      //     center: {lat: -34.397, lng: 150.644},
-      //     zoom: 8
-      //   });
-      // }
-    </script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0&callback=initMap"
-    async defer></script> -->
-  </body>
-</html>
+<!--Left/Members Div -->
+<div class="row align-right align-container">
+
+  
+  <div class="column large-3 small-3">
+      <div style="min-height: 192px; max-width: 200px;"> 
+          
+          <button type="button" style="margin-top:20px;" class="submit button" id="checkInButton">Check In</button>
+              <label id="userName">
+                  <input id="name" type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
+              </label>
+              <label id="groupName">
+                  <input id="group" type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
+              </label>
+          
+      
+      </div>
+      <div class="is-drilldown" style="min-height: 192px; max-width: 200px;">
+    <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
+      <li>
+        <a href="#0">Group</a>
+        <ul class="vertical menu" id="m2">
+          <li>
+            <a href="#0">Members List</a>
+            <ul class="vertical menu" id="m3">
+              <li><a href="#0">Nic</a></li>
+              <li><a href="#0">Ryan</a></li>
+              <li><a href="#0">Pinkie</a></li>
+              <li><a href="#0">Jameel</a></li>
+            </ul>
+  </div>
+</div>
+
+<!--Right/Map Div-->
+  <div class="column large-9">
+    <div class="mapContainer" id="map-container">
+      <img id="mapPlaceHolder" src="assets/map_placeholder.png">
+    </div>
+  </div>
+</div>
+<!--Bottom Message form-->
+<!-- <div class="row" style="margin: 20px;">
+  <div class="column large-12">
+    <div class="input-group">
+      <span class="input-group-label">Message</span>
+      <input class="input-group-field" type="url">
+      <div class="input-group-button">
+        <input type="send" class="button" value="Send" id="sendButton">
+      </div>
+    </div> -->
+    <!--Clock tracking how long first member has been in group-->
+    <!-- <div id="momentClock">loading...</div>
+  </div> -->
+</div>
+<script src="assets/js/vendor/jquery.js"></script>
+<script src="assets/js/vendor/what-input.js"></script>
+<script src="assets/js/vendor/foundation.js"></script>
+<script src="assets/logic_test.js"></script>
+
+
+<footer class="footer">   
+    <p style="margin-top: -10px;">
+     Copyright &copy; CatchUp! 2019
+    </p>
+</footer>
+</body>
