@@ -124,36 +124,6 @@ $( document ).ready(function() {
     
     });
 
-<<<<<<< Updated upstream
-        //**here if positionRef is not set initially (i.e. the page is reloaded and no check in has been made) will not update**
-        //**we need authentication and uniqueness**
-        // Similar to the check in function, data is taken and stored in the database.
-        // Unlike check in, update uses the positionRef to set the data (overwriting and rewriting all of the data) without creating an 
-        // addtional and superfluous unique random ID from database
-        database.ref("/groups/" + positionRef).set({groupID: group, name: name, x: longitude, y: latitude})
-
-            // Experimenting with trying to get the data in the positionRef in a parseable object form upon a value delta
-        database.ref("/groups/" + positionRef).once("value")
-            .then(function(snapshot) {
-                console.log(snapshot.val());
-            });
-
-        if (name in database.ref("/groups/" + positionRef) ){
-            console.log("yea it's here alright");
-        }
-        else {
-            console.log("nope");
-            console.log(name);
-            console.log(group);
-        }
-        
-        });
-
-});
-
-
-})
-=======
           
     $("#update").on( "click", function() {
         // Generate data to move the Markers
@@ -220,4 +190,3 @@ $( document ).ready(function() {
 
 
 
->>>>>>> Stashed changes
