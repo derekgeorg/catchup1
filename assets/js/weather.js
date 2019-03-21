@@ -2,25 +2,28 @@
 
 $(document).ready(function(){
 console.log("map.js linked successful");
-});
+
 
 //Get current coordinates from geolocation
-var latitude;
-var longitude;
+var lat = null;
+var long = null;
 
 navigator.geolocation.getCurrentPosition(function showLocation(position){
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
     continueExecution();
-});
-function continueExecution() {
-    console.log(latitude);
-    console.log(longitude);
+
+function continueExecution(){
+console.log(lat);
+console.log(long);
 }
+
+
+
 
 //Creating a call to OpenWeatherAPI
 var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=imperial&appid=" + APIkey;
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + APIkey;
 
 $.ajax ({
     url: queryURL,
@@ -68,5 +71,5 @@ $("#weatherText").text(temperature + "°")
 //         'Error: Your browser doesn\'t support geolocation.');
 //     infoWindow.open(map-container);
 // }
-
-    
+});
+});
