@@ -1,4 +1,5 @@
 // Bringing in my realtime database credentials to link to the page
+// c3c666a8e63485dd6c2cb22abe8ff50bda5ac2d3
 var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
     authDomain: "ulisesproject-9cbd7.firebaseapp.com",
