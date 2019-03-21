@@ -46,9 +46,6 @@ $( document ).ready(function() {
                 // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
                 positionRef = database.ref("/groups").push({groupID: group, name: name, x: longitude, y: latitude}).key;
                 console.log(positionRef);
-
-                example = firebase.database().ref().child('groups') ;
-                console.log(example);
     
             }
             else {
