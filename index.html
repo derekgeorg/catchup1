@@ -12,6 +12,7 @@
   <script src="assets/js/weather.js"></script>
   <script scr="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0&callback=initMap"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
   <link rel="stylesheet" href="assets/css/foundation.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -47,12 +48,12 @@
             <!--Update button-->
             <button type="button" style="margin-top:20px; color: white; background: #ff0064" class="submit button" id="update">Update</button>    
             <!--User name input-->
-            <label id="userName">
-                    <input type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
+            <label >
+                    <input id="name" class = "name" type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
                 </label>
             <!--Group name input-->
-            <label id="groupName">
-                    <input type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
+            <label >
+                    <input id="group" class="group" type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
             </label>
         </div>
         <!---Group Drilldown Menu-->
