@@ -1,5 +1,4 @@
 // Bringing in my realtime database credentials to link to the page
-// c3c666a8e63485dd6c2cb22abe8ff50bda5ac2d3
 var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
     authDomain: "ulisesproject-9cbd7.firebaseapp.com",
@@ -19,6 +18,7 @@ $( document ).ready(function() {
     var positionRef;
     var latitude;
     var longitude;
+    var localData = {};
 
     // When clicking the check in button...
     $("#checkIn").on("click", function(e){
@@ -34,28 +34,44 @@ $( document ).ready(function() {
         $("input.name").val("");
         $("input.group").val("");
 
-        // Browser geolocation API asks for permission to get location data.
-        // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
-        navigator.geolocation.getCurrentPosition(function(position) {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-        
-            if ("geolocation" in navigator){
-                // If the user accepted location services, write their name, group, and position in the database.
-                // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
-                // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
-                positionRef = database.ref("/groups").push({groupID: group, name: name, x: longitude, y: latitude}).key;
-                console.log(positionRef);
-    
+                
+        if (group in localData){
+            alert("Please pick a different group name. Someone nabbed this one ;]")
+        }
+
+        else {
+            // proceed
+            if (name in group){
+                alert("Shucks. There's already a " + name + " in this group. Pick a different name please")
             }
-            else {
-                // No navigation ability will notify the user
-                console.log("no navigation ability")
-                // window.location.replace = "geo.html"
+            else{
+                // proceed
+
+
+                // Browser geolocation API asks for permission to get location data.
+                // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
+                navigator.geolocation.getCurrentPosition(function(position) {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+            
+                if ("geolocation" in navigator){
+                    // If the user accepted location services, write their name, group, and position in the database.
+                    // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                    // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                    positionRef = database.ref("/groups").push({groupID: group, name: name, x: longitude, y: latitude}).key;
+                    console.log(positionRef);
+        
+                }
+                else {
+                    // No navigation ability will notify the user
+                    console.log("no navigation ability")
+                    // window.location.replace = "geo.html"
             }
         });
 
-        
+            }
+        }
+
     
     });
     
@@ -99,76 +115,9 @@ $( document ).ready(function() {
             console.log(name);
             console.log(group);
         }
-    
-    });
-    
-    
-var nDerekX = 30.28715;
-var nDerekY = -97.72910;
-
-var nNicoX = 30.28715;
-var nNicoY = -97.72910;
-
-var nKenX = 30.28715;
-var nKenY = -97.72910;
-
-var nUlisesX = 30.28715;
-var nUlisesY = -97.72910;
-
-var nJamesX = 30.28715;
-var nJamesY = -97.72910;
-
-var arrMarkers = [];
-var myCatchUp = [];
-myCatchUp.push( { myLabel: "Derek", myName: "Go Horns!!", x: nDerekX, y: nDerekY } );
-myCatchUp.push( { myLabel: "Nico", myName: "Happy Thursday", x: nNicoX, y: nNicoY } );
-myCatchUp.push( { myLabel: "Ken", myName: "What time are we supposed to be back in class?", x: nKenX, y: nKenY } );
-myCatchUp.push( { myLabel: "Ulises", myName: "Anyone wanna have lunch?", x: nUlisesX, y: nUlisesY } );
-myCatchUp.push( { myLabel: "James", myName: "Which way to the co-op?", x: nJamesX, y: nJamesY } );
-
-
-    var myMap;
-    var thompsonConference = { lat: 30.28715, lng: -97.72910 };
-
-    function initMap() {
-        debugger;
-        // For now let's just create the map HERE..
-        myMap = new google.maps.Map( document.getElementById( 'map' ), {
-          // Center the map on our own location.  Well..  Class location..
-          center: thompsonConference,
-          zoom: 17
+        
         });
-      
-        // Go ahead and update our map first set of data.
-        updateMap();
-    }
 
-    function updateMap() {
-        for ( var nIndex = 0; nIndex < myCatchUp.length; nIndex++ ) {
-          var markerPos = { lat: myCatchUp[ nIndex ].x, lng: myCatchUp[ nIndex ].y };
-          myCatchUp[ nIndex ].myMarker = new google.maps.Marker({ title: myCatchUp[ nIndex ].myName, label:myCatchUp[ nIndex ].myLabel, position: markerPos, map: myMap });
-        }
-    }
-      
-    $("#update").on( "click", function() {
-        // Generate data to move the Markers
-        var nOffsetLat;
-        var nOffsetLon;
-      
-        for ( var nIndex = 0; nIndex < myCatchUp.length; nIndex++ ) {
-      
-          nOffsetLat = ( Math.floor( Math.random() * 10 ) - 5) / 10000;
-          nOffsetLon = ( Math.floor( Math.random() * 10 ) - 5) / 10000;
-          myCatchUp[ nIndex ].x += nOffsetLat;
-          myCatchUp[ nIndex ].y += nOffsetLon;
-      
-          var newMarkerPos = { lat: myCatchUp[ nIndex ].x, lng: myCatchUp[ nIndex ].y };
-          myCatchUp[ nIndex ].myMarker.setPosition( newMarkerPos );
-          console.log( "Pos: " + myCatchUp[ nIndex ].myLabel + "  " + myCatchUp[ nIndex ].x + ":" + myCatchUp[ nIndex ].y );
-        }
-    });
-      
-    initMap();    
 });
 
 
