@@ -101,9 +101,76 @@ $( document ).ready(function() {
             console.log(name);
             console.log(group);
         }
-        
-        });
+    
+    });
+    
+    
+var nDerekX = 30.28715;
+var nDerekY = -97.72910;
 
+var nNicoX = 30.28715;
+var nNicoY = -97.72910;
+
+var nKenX = 30.28715;
+var nKenY = -97.72910;
+
+var nUlisesX = 30.28715;
+var nUlisesY = -97.72910;
+
+var nJamesX = 30.28715;
+var nJamesY = -97.72910;
+
+var arrMarkers = [];
+var myCatchUp = [];
+myCatchUp.push( { myLabel: "Derek", myName: "Go Horns!!", x: nDerekX, y: nDerekY } );
+myCatchUp.push( { myLabel: "Nico", myName: "Happy Thursday", x: nNicoX, y: nNicoY } );
+myCatchUp.push( { myLabel: "Ken", myName: "What time are we supposed to be back in class?", x: nKenX, y: nKenY } );
+myCatchUp.push( { myLabel: "Ulises", myName: "Anyone wanna have lunch?", x: nUlisesX, y: nUlisesY } );
+myCatchUp.push( { myLabel: "James", myName: "Which way to the co-op?", x: nJamesX, y: nJamesY } );
+
+
+    var myMap;
+    var thompsonConference = { lat: 30.28715, lng: -97.72910 };
+
+    function initMap() {
+        debugger;
+        // For now let's just create the map HERE..
+        myMap = new google.maps.Map( document.getElementById( 'map' ), {
+          // Center the map on our own location.  Well..  Class location..
+          center: thompsonConference,
+          zoom: 17
+        });
+      
+        // Go ahead and update our map first set of data.
+        updateMap();
+    }
+
+    function updateMap() {
+        for ( var nIndex = 0; nIndex < myCatchUp.length; nIndex++ ) {
+          var markerPos = { lat: myCatchUp[ nIndex ].x, lng: myCatchUp[ nIndex ].y };
+          myCatchUp[ nIndex ].myMarker = new google.maps.Marker({ title: myCatchUp[ nIndex ].myName, label:myCatchUp[ nIndex ].myLabel, position: markerPos, map: myMap });
+        }
+    }
+      
+    $("#update").on( "click", function() {
+        // Generate data to move the Markers
+        var nOffsetLat;
+        var nOffsetLon;
+      
+        for ( var nIndex = 0; nIndex < myCatchUp.length; nIndex++ ) {
+      
+          nOffsetLat = ( Math.floor( Math.random() * 10 ) - 5) / 10000;
+          nOffsetLon = ( Math.floor( Math.random() * 10 ) - 5) / 10000;
+          myCatchUp[ nIndex ].x += nOffsetLat;
+          myCatchUp[ nIndex ].y += nOffsetLon;
+      
+          var newMarkerPos = { lat: myCatchUp[ nIndex ].x, lng: myCatchUp[ nIndex ].y };
+          myCatchUp[ nIndex ].myMarker.setPosition( newMarkerPos );
+          console.log( "Pos: " + myCatchUp[ nIndex ].myLabel + "  " + myCatchUp[ nIndex ].x + ":" + myCatchUp[ nIndex ].y );
+        }
+    });
+      
+    initMap();    
 });
 
 
