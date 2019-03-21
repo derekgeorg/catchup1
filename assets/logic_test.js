@@ -1,3 +1,5 @@
+  
+  
   var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
     authDomain: "ulisesproject-9cbd7.firebaseapp.com",
@@ -10,7 +12,7 @@
 
  var database = firebase.database();
 
-// whatever ID we generater, we want to set a directory in datase with that ID which holds memebers and positions
+// whatever ID we generater, we want to set a directory in datase with that ID which holds members and positions
 
 
 // this line below makes a directory in database called groupsRef but we need a variable instead of a set string because it'll be a random ID
@@ -82,9 +84,28 @@ $( document ).ready(function() {
     }
     });
   
+
+//pseudocode, if the user tries to pick a username that is already being used
+//tell user to pick a different name
+name = $("#nameField").val();
+GroupName = firebase.database().ref().child('groups') 
+//Name    - access databse  - reference the child of "groupsRef"
+GroupName.on('value', snap => console.log(snap.val()));
+// When value changes console log snapshot of data 
+
+$("#joinButton").on("click", function(){//when Join is clicked
+
+
+if (name === GroupName.name) {
+    alert ("Pick ye a new name")
+
+}});
+
+
+
+
+
 //how to member list
-
-
 var group = {
 
     member: {
