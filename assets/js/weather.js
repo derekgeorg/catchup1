@@ -1,4 +1,4 @@
-// $(document).foundation();
+
 
 $(document).ready(function(){
 console.log("map.js linked successful");
@@ -34,6 +34,7 @@ var temperature = response.main.temp;
 //Display temperature in top header #weatherText
 $("#weatherText").text(temperature + "°")
 });
+$(document).foundation();
 
 //pull temperature based on geographic coordinates provided by location
 
@@ -71,5 +72,6 @@ $("#weatherText").text(temperature + "°")
 //         'Error: Your browser doesn\'t support geolocation.');
 //     infoWindow.open(map-container);
 // }
+
 });
 });
