@@ -14,6 +14,7 @@ var thompsonConference = { lat: 30.28715, lng: -97.72910 };
 
 // Creates a subdirectory 'groups' in root of database 
 var groupsHolderRef = database.ref("/groups");
+var positionRef;
 
 // A few globals..
 var myName;          // The name of the person on this device
@@ -23,7 +24,6 @@ var nCatchUpAction = nNoAction;
 
 var nNoAction = 0;
 var nUpdateEventPinInfo = 1;
-
 
     // These are the global variables for the map itself as well as the array of information
     // about the group we are tracking.
@@ -68,8 +68,43 @@ var nUpdateEventPinInfo = 1;
         });
     }
 
+    function processTimeoutEvent( database, sGroupName ) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            if ("geolocation" in navigator){
+                // If the user accepted location services, write their name, group, and position in the database.
+                // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                database.ref("/groups/" + positionRef).set({groupID: myGroup, name: myName, x: latitude, y: longitude});
+                countdown();
+            }
+            else {
+                // No navigation ability will notify the user
+                console.log("no navigation ability")
+                // window.location.replace = "geo.html"
+            }
+        });
+    }
+
+    function countdown() {
+        var seconds = 60;
+        function tick() {
+            seconds--;
+            if( seconds > 0 ) {
+                setTimeout(tick, 1000);
+            } else {
+                processTimeoutEvent( database, myGroup );
+                seconds = 60;
+            }
+        }
+        tick();
+    }
+
+
     // This is the initial map creation call..
-    initMap();    
+    initMap();
 
 $( document ).ready(function() {
 //    var localData = {};
@@ -111,8 +146,9 @@ $( document ).ready(function() {
                         // If the user accepted location services, write their name, group, and position in the database.
                         // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
                         // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
-                        var positionRef = database.ref("/groups").push({groupID: myGroup, name: myName, x: latitude, y: longitude}).key;
+                        positionRef = database.ref("/groups").push({groupID: myGroup, name: myName, x: latitude, y: longitude}).key;
                         console.log(positionRef);
+                        countdown();
                     }
                     else {
                         // No navigation ability will notify the user
@@ -128,7 +164,6 @@ $( document ).ready(function() {
     $("#update").on("click", function(e){
         // Stop the page from reloading
         e.preventDefault();
-        console.log( "Ready to process..  Current processing: " + arrEvent.length );
         processCatchUpEvent( database, myGroup, nUpdateEventPinInfo );
     });
 });
