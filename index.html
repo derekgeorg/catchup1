@@ -6,12 +6,13 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CatchUp!</title>
-  <link rel="shortcut icon" href="assets/logo_favicons.ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/logo_favicons.ico/catchup_favicon_updated.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script scr="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0"></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <link rel="stylesheet" href="assets/css/foundation.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -29,6 +30,7 @@
 
           </div>
           <div class="top-bar-right">
+                <p id="timeClock"></p>
                 <p id="weatherText"></p>
             </ul>
         </div>
@@ -103,9 +105,7 @@
   <script src="assets/js/vendor/what-input.js"></script>
   <script src="assets/js/vendor/foundation.js"></script>
   <script src="assets/js/app.js"></script>
-
-<script src="assets/js/weather.js"></script>
-
+  <script src="assets/js/weather.js"></script>
 
   <footer class="footer">   
       <p id="footerText" style="margin-top: -10px;">

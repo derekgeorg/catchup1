@@ -1,7 +1,23 @@
-
-
 $(document).ready(function(){
 console.log("map.js linked successful");
+
+//Get local time using momentjs and display on header
+// var timeNow = (moment().format('MMMM Do YYYY, h:mm:ss a')); 
+
+// console.log(timeNow);
+// function clock(){
+//     $("#timeClock").text(timeNow)
+// }
+// setInterval(clock, 1000);
+
+var timeNow = moment()
+$('#timeClock').html(moment(timeNow).format('MMMM Do YYYY, h:mm:ss a'))
+
+function clock() {
+    $('#timeClock').html(moment().format('MMMM Do YYYY, h:mm:ss a'))
+}
+
+setInterval(clock, 1000)
 
 
 //Get current coordinates from geolocation

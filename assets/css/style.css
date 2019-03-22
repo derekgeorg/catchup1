@@ -36,11 +36,18 @@
     background-color: #ff0064;
 }
 
-p {
+#weatherText {
     color: #ff0064;
     margin-top: 20px;
     margin-right: 113px;
 }
+#timeClock {
+    color: #ff0064;
+    margin-top: 20px;
+    margin-right: 113px;
+
+}
+
 /* .submit_button {
     color: white;
     background-color: #ff0064;
