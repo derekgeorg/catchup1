@@ -63,7 +63,7 @@ footer {
     background-color: #ff0064;
     border-top: 8px solid #00ffbb;
     height: 20px;
-    position: fixed;
+    margin-top: 10px;
     bottom: 0;
     width: 100%;
 }
@@ -78,11 +78,26 @@ footer {
     color: white;
     background-color: #ff0064;
 }
+#weatherText {
+    float: right;
+    right: 35%;
+    position: absolute;
+    top: 38px;
+    margin-top: 0%;
+    margin-right: 0;
+}
+#timeClock {
+    float: right;
+    position: relative;
+    top: -46px;
+    margin-top: 0%;
+    margin-right: 0;
+}
 @media only screen and (max-width: 415px){
     #weatherText{
         position: absolute;
         left: 77%;
-        top: 13px;
+        top: 31px;
     }
     #buttonContainer{
         position: relative;
@@ -119,9 +134,20 @@ footer {
         margin-right: 0
     }
     #checkIn {
-        width: 138%;
+        width: 120%;
         position: relative;
         left: -11px;
         top: -7px;
+    }
+    #timeClock{
+        margin-left: 37px;
+        margin-top: 0;
+        margin-right: 0;
+        top: -8px;
+        left: -60px;
+    }
+    footer {
+        position: fixed;
+        margin-top: 0%
     }
 }
