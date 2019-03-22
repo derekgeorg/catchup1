@@ -9,7 +9,6 @@
   <link rel="shortcut icon" href="assets/logo_favicons.ico/favicon-16x16.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-  <script src="assets/js/weather.js"></script>
   <script scr="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0"></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
@@ -22,24 +21,20 @@
     <div class="row">
       <div class="column large-12">
         <div class="top-bar" style="background-color: white">
-          <div class="top-bar-left">
             <ul class="menu" style="background-color: white">
               <li class="menu-text" style="background-color: white" id="menu-text" ><img id="topLogo" src="assets/logos/logo_w_wordsmith.png" alt="CatchUp! Logo"></li>
               <!-- <li class="menu-button" style="background-color: lightgrey" id="menu-button-first"><a href="#0">Join</a></li>
               <li class="menu-button" style="background-color: lightgrey" id="menu-button-second"><a href="#0">Create</a></li> -->
             </ul>
-          </div>
-          <div class="top-bar-right">
                 <p id="weatherText">Weather</p>
             </ul>
-          </div>
         </div>
       </div>
    </div>
 
   <!--Main Left Div -->
   <div class="row align-right align-container"> 
-    <div class="column large-3 small-3">
+    <div id="buttonContainer" class="column large-3 small-3">
         <div style="min-height: 192px; max-width: 200px;"> 
             <!--Check In button-->
             <button type="button" style="margin-top:20px; color: white; background: #ff0064;" class="submit button" id="checkIn">Check In</button>
@@ -54,7 +49,7 @@
                     <input type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
             </label>
         </div>
-        <div class="is-drilldown" style="min-height: 192px; max-width: 200px;">
+        <div id="drill" class="is-drilldown" style="min-height: 192px; max-width: 200px;">
             <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
                 <li>
                     <a href="#0">Group</a>
@@ -105,10 +100,10 @@
   <script src="assets/js/vendor/what-input.js"></script>
   <script src="assets/js/vendor/foundation.js"></script>
   <script src="assets/js/app.js"></script>
-
+<script src="assets/js/weather.js"></script>
 
   <footer class="footer">   
-      <p style="margin-top: -10px;">
+      <p id="footerText" style="margin-top: -10px;">
        Copyright &copy; CatchUp! 2019
       </p>
 </footer>
