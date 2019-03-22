@@ -111,4 +111,10 @@ footer {
         text-align: center;
         margin-right: 0
     }
+    #checkIn {
+        width: 138%;
+        position: relative;
+        left: -11px;
+        top: -7px;
+    }
 }
