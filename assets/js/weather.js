@@ -35,6 +35,7 @@ var temperature = response.main.temp;
 $("#weatherText").text(temperature + "°")
 });
 $(document).foundation();
+
 //pull temperature based on geographic coordinates provided by location
 
 // var map, infoWindow;
@@ -71,5 +72,6 @@ $(document).foundation();
 //         'Error: Your browser doesn\'t support geolocation.');
 //     infoWindow.open(map-container);
 // }
+
 });
 });
