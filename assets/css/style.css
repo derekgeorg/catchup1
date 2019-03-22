@@ -71,4 +71,44 @@ footer {
     color: white;
     background-color: #ff0064;
 }
-
+@media only screen and (max-width: 415px){
+    #weatherText{
+        position: absolute;
+        left: 77%;
+        top: 13px;
+    }
+    #buttonContainer{
+        position: relative;
+        top: 494px;
+    }
+    #update{
+        position: relative;
+        top: -84px;
+        left: 82px;
+    }
+    #userName{
+        position: relative;
+        top: -64px;
+        width: 173%;
+    }
+    #groupName{
+    position: relative;
+    top: -59px;
+    width: 200%;
+    }
+    #drill{
+        min-height: 192px;
+        max-width: 200px;
+        top: -54%;
+        left: 161px;
+        width: 150%;
+    }
+    #map{
+        width: 140%;
+        left: -38%;
+    }
+    #footerText{
+        text-align: center;
+        margin-right: 0
+    }
+}
