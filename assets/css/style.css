@@ -66,6 +66,7 @@ footer {
     margin-top: 10px;
     bottom: 0;
     width: 100%;
+    position: fixed;
 }
 
 
@@ -106,7 +107,7 @@ footer {
     #update{
         position: relative;
         top: -84px;
-        left: 82px;
+        left: 100px;
     }
     #userName{
         position: relative;
@@ -134,7 +135,7 @@ footer {
         margin-right: 0
     }
     #checkIn {
-        width: 120%;
+        width: 147%;
         position: relative;
         left: -11px;
         top: -7px;
@@ -149,5 +150,9 @@ footer {
     footer {
         position: fixed;
         margin-top: 0%
+    }
+
+    .drilldown {
+        margin-left: 20px;
     }
 }
