@@ -104,19 +104,19 @@ footer {
         position: relative;
         top: 494px;
     }
-    #update{
+    /* #update{
         position: relative;
         top: -84px;
         left: 100px;
-    }
+    } */
     #userName{
         position: relative;
-        top: -64px;
-        width: 173%;
+        top: 0px;
+        width: 200%;
     }
     #groupName{
     position: relative;
-    top: -59px;
+    top: 0px;
     width: 200%;
     }
     #drill{
@@ -135,10 +135,10 @@ footer {
         margin-right: 0
     }
     #checkIn {
-        width: 147%;
+        width: 200%;
         position: relative;
-        left: -11px;
-        top: -7px;
+        left: 0px;
+        top: 0px;
     }
     #timeClock{
         margin-left: 37px;
