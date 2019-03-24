@@ -1,3 +1,4 @@
+
 // Bringing in my realtime database credentials to link to the page
 var config = {
     apiKey: "AIzaSyCHsRpyLVhpJZyOpZ14DssEVo60alkM8po",
@@ -12,29 +13,97 @@ var config = {
 var database = firebase.database();
 
 var positionRef;
-var latitude;
-var longitude;
-var groups;
-var groupMap;
-var currentMap;
-var markers = [];
+var bCheckedIn = false;
 
-    function setMapOnAll(map) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-        }
+// A few globals..
+var myName;          // The name of the person on this device
+var myGroup;         // The name of the Catch Up this device is in.  In the future when 
+                     // we understand more of how the piblic will actually use this app,
+                     // we can make the mygroup into an array and be in multiple groups.
+
+var nCatchUpAction = nNoAction;
+
+var nNoAction = 0;
+var nUpdateEventPinInfo = 1;
+
+    // These are the global variables for the map itself as well as the array of information
+    // about the group we are tracking - each entry in the arrEvent array will contain the
+    // the Marker for each user.
+    var myMap;
+    var arrEvent = [];
+
+    function initMap() {
+
+        // For now let's just create the map HERE..   We start the map at the Class location
+        // but once a user signs in and starts using the app, the map updates to center on
+        // the position of the user signing in.
+        myMap = new google.maps.Map( document.getElementById( 'map' ), {
+          // Center the map on Class location..
+          center: thompsonConference,
+          zoom: 17
+        });
     }
 
-    function clearMarkers() {
-        setMapOnAll(null);
-      }
+    // The purpose of this function is to call to firebase to get all the information about the group, sGroupName
+    // from the Firebase database.
+    function processCatchUpEvent( database, sGroupName, nAction ) {
 
+        database.ref( "/groups" ).on( "value", function( snapshot ) {
+            if ( nAction == nUpdateEventPinInfo ) {
 
-      function deleteMarkers() {
-        clearMarkers();
-        markers = [];
-      }
+                // First run through and clear map reference for existing markers.
+                for ( var nLoop = 0; nLoop < arrEvent.length; nLoop++ ) {
+                    if ( typeof arrEvent[ nLoop ].myMarker !== 'undefined' ) {
+                        arrEvent[ nLoop ].myMarker.setMap( null );
+                    }
+                }
 
+                // For each line in the database, see if the member is in our group and, if so,
+                // create a Marker for each person.
+                snapshot.forEach( function( thisMember ) {
+                    if ( thisMember.val().groupID === sGroupName ) {
+                        var markerPos = { lat: thisMember.val().x, lng: thisMember.val().y };
+
+                        console.log( "Placing marker at: " + thisMember.val().x + ":" + thisMember.val().y );
+
+                        var marker = new google.maps.Marker({ title: thisMember.val().name,
+                                                              label: thisMember.val().name,
+                                                              position: markerPos,
+                                                              map: myMap });
+
+                        arrEvent.push({ groupID: thisMember.val().groupID,
+                                        name: thisMember.val().name,
+                                        x: thisMember.val().x,
+                                        y: thisMember.val().y,
+                                        myMarker: marker });
+                    }
+                });
+            }
+        });
+    }
+
+    // This is called when out timer expires so we can set our position in Firebase.
+    function processTimeoutEvent( database, sGroupName ) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            if ("geolocation" in navigator){
+                // If the user accepted location services, write their name, group, and position in the database.
+                // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                positionRef.set({groupID: myGroup, name: myName, x: latitude, y: longitude});
+                countdown();
+            }
+            else {
+                // No navigation ability will notify the user
+                console.log("no navigation ability")
+                // window.location.replace = "geo.html"
+            }
+        });
+    }
+
+    // Update our position in the database every 60 seconds.
     function countdown() {
         var seconds = 60;
         function tick() {
@@ -50,141 +119,78 @@ var markers = [];
     }
 
 $( document ).ready(function() {
+//    var localData = {};
 
-    // Creates a subdirectory 'groups' in root of database 
-    var groupsRef = database.ref("/groups");
+//Moment JS clock shows current time and interval per sec
+var timeNow = moment()
+$('#timeClock').html(moment(timeNow).format('MMMM Do YYYY, h:mm:ss a'))
 
-    function groupMap() {
-        groupMap = new google.maps.Map(document.getElementById( 'map' ), {
-            center : {lat: latitude, lng: longitude},
-            zoom: 12
-        })
-        
-        var marker = new google.maps.Marker({
-            position: {lat: latitude, lng: longitude},
-            map: groupMap,
-        });
-        
+function clock() {
+    $('#timeClock').html(moment().format('MMMM Do YYYY, h:mm:ss a'))
+}
+
+setInterval(clock, 1000)
     
-    };
-
-    database.ref().on("value",function(snap){
-        
-        navigator.geolocation.getCurrentPosition(function(position) {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-        
-            groupMap();
-
-            var contents = snap.val();
-            groups = Object.keys(contents.groups);
+    // When clicking the check in button...
+    $("#checkIn").on("click", function(e){
+        if ( !bCheckedIn ) {
+            bCheckedIn = true;
             
-            for (let i = 0; i < groups.length; i++){
+            // Stop the page from reloading
+            e.preventDefault();
+
+            // Take the values from the name field and the group field and assign them to name and group respectively
+            myName = $("#userName").val();
+            myGroup = $("#groupName").val();
+            console.log( "Checkin Name: " + myName );
+            console.log( "Checkin Group: " + myGroup );
+
+            // Browser geolocation API asks for permission to get location data.
+            // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
+            navigator.geolocation.getCurrentPosition(function(position) {
+
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+            // OpenWeather API gets temperature based on current location
+                var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=imperial&appid=" + APIkey;
+
+                $.ajax ({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response){
+                    console.log(response);
+                var temperature = response.main.temp;
+                //Display temperature in top header #weatherText
+                $("#weatherText").text(Math.round(temperature) + "°")
+                });
                 
-                //Creating the sidebar dynamically
-                var groupA = $("<a>");
-                groupA.attr("href", "#0");
-                var listA = $("<a>");
-                listA.attr("href", "#0");
-                listA.text("Members List");
-                var topLi = $("<li>");
-                topLi.addClass("topLi");
-                var midLi = $("<li>");
-                midLi.addClass("midLi");
-                var loLi = $("<li>");
-                loLi.addClass("loLi");
-                var m3 = $("<ul>");
-                m3.addClass("veritcal menu inUl");
-                m3.attr("id", "m3");
-                var m2 = $("<ul>");
-                m2.addClass("vertical menu topUl");
-                m2.attr("id", "m2");
+                // Now that they are signed in, center the map on their current position.
+                myMap.setCenter( { lat: latitude, lng: longitude } );
 
-                $("#m1").append(topLi);
-                groupA.text(groups[i]);
-                topLi.append(groupA);
-                topLi.append(m2)
-                m2.append(midLi);
-                midLi.append(listA);
-                midLi.append(m3);
-                members = Object.keys(contents.groups[groups[i]]);
-                
+                if ("geolocation" in navigator){
+                    // If the user accepted location services, write their name, group, and position in the database.
+                    // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                    // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                    positionRef = database.ref("/groups").push({groupID: myGroup, name: myName, x: latitude, y: longitude});
 
-                    for (let j=0; j<members.length; j++){
-                        markers.push(contents.groups[groups[i]][members[j]]);
+                    // Process the event to create the thumb-tack..
+                    processCatchUpEvent( database, myGroup, nUpdateEventPinInfo );
+                    countdown();
 
-                        // function placeMarker(){
-                            // function currentMap(){
-                            //     currentMap = new google.maps.Map(document.getElementById( 'map' ), {
-                            //         center : {lat: latitude, lng: longitude},
-                            //         zoom: 14
-                            //     })
-                            // }    
-                            // currentMap();   
-                            
-                            // for (let k=3; k<markers.length; k++){
-                            //     console.log(markers[k]);
-                            //     var pin = new google.maps.Marker({
-                            //         position: markers[k],
-                            //         // map: currentMap
-                            //     })
-                            //     pin.setMap(currentMap);
-                            // }
-
-                        // }
-
-                        $("#checkIn").on("click", function(e){
-                            // Stop the page from reloading
-                            e.preventDefault();
-                            
-                            navigator.geolocation.getCurrentPosition(function(position) {
-                                latitude = position.coords.latitude;
-                                longitude = position.coords.longitude;
-
-                                let name = $("#name").val();
-                                let group = $("#group").val();
-                                // Clear out the text field after the input has been gathered
-                                // $("input.name").val("");
-                                // $("input.group").val("");
-
-                                if ("geolocation" in navigator){
-                                    //Trying out new data structure
-                                    groupsRef = database.ref("/groups/" + group );
-                                    nameRef = database.ref("/groups/" + group + "/" + name );
-                                    nameRef.set({lat: latitude, lng: longitude});
-                                }
-    
-                          
-                            function currentMap(){
-                                currentMap = new google.maps.Map(document.getElementById( 'map' ), {
-                                    center : {lat: latitude, lng: longitude},
-                                    zoom: 14
-                                })
-                            }    
-                            currentMap();   
-                            
-                            for (let k=3; k<markers.length; k++){
-                                console.log(markers[k]);
-                                var pin = new google.maps.Marker({
-                                    position: markers[k],
-                                    // map: currentMap
-                                })
-                                pin.setMap(currentMap);
-                            }
-                            // placeMarker();
-                            });
-                        });
-
-
-                        m3.append(loLi);
-                        var memberA = $("<a>");
-                        memberA.attr("href", "#0");
-                        loLi.append(memberA);
-                        memberA.text(members[j]);
-                    }
+                    // Setup a call to take care of cleaning up - removing our line in Firebase - on disconnect..
+                    positionRef.onDisconnect().remove();
                 }
-                
-        });
+                else {
+                    // No navigation ability will notify the user
+                    console.log("no navigation ability")
+                    // window.location.replace = "geo.html" - Future enhancement!!
+                }
+            });
+        } else {
+            console.log( "Already checked in!!" );
+        }
     });
 
     // When clicking the check in button...
@@ -227,3 +233,4 @@ $( document ).ready(function() {
     //     });
     // });
 });
+$(document).foundation();
