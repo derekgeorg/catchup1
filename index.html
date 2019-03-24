@@ -10,11 +10,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script scr="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script scr="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <link rel="stylesheet" href="assets/css/foundation.css">
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/foundation.css">
+
 </head>
 <body>
   <!--Top menu bar-->
@@ -27,59 +29,59 @@
               <!-- <li class="menu-button" style="background-color: lightgrey" id="menu-button-first"><a href="#0">Join</a></li>
               <li class="menu-button" style="background-color: lightgrey" id="menu-button-second"><a href="#0">Create</a></li> -->
             </ul>
-
           </div>
           <div class="top-bar-right">
-                <p id="timeClock"></p>
-                <p id="weatherText"></p>
+            <p id="timeClock"></p>
+            <p id="weatherText"></p>
             </ul>
+          </div>
         </div>
       </div>
    </div>
 
   <!--Main Left Div -->
   <div class="row align-right align-container"> 
-    <div id="buttonContainer" class="column large-3 small-3">
+    <div id= "buttonContainer" class="column large-3 small-3">
         <div style="min-height: 192px; max-width: 200px;"> 
             <!--Check In button-->
             <button type="button" style="margin-top:20px; color: white; background: #ff0064;" class="submit button" id="checkIn">Check In</button>
             <!--Update button-->
             <button type="button" style="margin-top:20px; color: white; background: #ff0064" class="submit button" id="update">Update</button>    
             <!--User name input-->
-            <label>
-                <input  id="userName" type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
-            </label>
+            <label id="userName">
+                    <input class="name" id="name" type="text" placeholder="Your Name" aria-describedby="exampleHelpText">
+                </label>
             <!--Group name input-->
-            <label>
-                <input  id="groupName" type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
+            <label id="groupName">
+                    <input class="group" id="group" type="text" placeholder="Group Name" aria-describedby="exampleHelpText">
             </label>
         </div>
-        <div id="drill" class="is-drilldown" style="min-height: 192px; max-width: 200px;">
+        <div class="is-drilldown" style="min-height: 192px; max-width: 200px;">
             <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
-                <li>
+                <!-- <li class = "topLi">
                     <a href="#0">Group</a>
-                        <ul class="vertical menu" id="m2">
-                            <li>
+                        <ul class="vertical menu topUl" id="m2">
+                            <li class="midLi">
                                 <a href="#0">Members List</a>
-                                <ul class="vertical menu" id="m3">
-                                    <li><a href="#0">Nic</a></li>
-                                    <li><a href="#0">Ryan</a></li>
-                                    <li><a href="#0">Pinkie</a></li>
-                                    <li><a href="#0">Jameel</a></li>
+                                <ul class="vertical menu inUl" id="m3">
+                                    <li class="loLi"><a href="#0">Nic</a></li>
+                                    <li class="loLi"><a href="#0">Ryan</a></li>
+                                    <li class="loLi"><a href="#0">Pinkie</a></li>
+                                    <li class="loLi"><a href="#0">Jameel</a></li>
                                 </ul>
                             </li>
                         </ul> 
-                </li>
+                </li> -->
             </ul>                   
          </div>
   </div>
 
 <!--Right/Map Div-->
-    <div class="column large-9">
-<!--      <div class="mapContainer" id="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d220492.6646124159!2d-97.86602935298642!3d30.288341674038698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b599a0cc032f%3A0x5d9b464bd469d57a!2sAustin%2C+TX!5e0!3m2!1sen!2sus!4v1553105503384" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div class="column large-9" id="mapContainer">
+     <!-- <div class="mapContainer" id="map-container"> -->
+            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d220492.6646124159!2d-97.86602935298642!3d30.288341674038698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b599a0cc032f%3A0x5d9b464bd469d57a!2sAustin%2C+TX!5e0!3m2!1sen!2sus!4v1553105503384" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
 
-          </div>    -->
+          <!-- </div>    -->
 
         <div id="map" style="height: 100%"></div>
      </div>
@@ -99,16 +101,18 @@
     </div> -->
   </div>
 
-<!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0&callback=initMap" async defer></script>  -->
-<!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0" async defer></script> -->
+ <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0&callback=groupMap" async defer></script>  -->
+ <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY_YYQqZ_ghhaThyJ3l5CzxvjuRVfXj0" async defer></script> -->
   <script src="assets/js/vendor/jquery.js"></script>
   <script src="assets/js/vendor/what-input.js"></script>
-  <script src="assets/js/vendor/foundation.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/vendor/foundation.js"></script>
+
   <script src="assets/js/weather.js"></script>
 
+
   <footer class="footer">   
-      <p id="footerText" style="margin-top: -10px;">
+      <p id= "footerText" style="margin-top: -10px;">
        Copyright &copy; CatchUp! 2019
       </p>
 </footer>

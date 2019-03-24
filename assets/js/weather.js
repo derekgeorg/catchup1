@@ -1,5 +1,4 @@
 $(document).ready(function(){
-console.log("map.js linked successful");
 
 //Get local time using momentjs and display on header
 // var timeNow = (moment().format('MMMM Do YYYY, h:mm:ss a')); 
@@ -22,16 +21,16 @@ setInterval(clock, 1000)
 
 //Get current coordinates from geolocation
 var lat = null;
-var long = null;
+var lng = null;
 
 navigator.geolocation.getCurrentPosition(function showLocation(position){
     lat = position.coords.latitude;
-    long = position.coords.longitude;
+    lng = position.coords.longitude;
     continueExecution();
 
 function continueExecution(){
-console.log(lat);
-console.log(long);
+// console.log(lat);
+// console.log(long);
 }
 
 
@@ -39,13 +38,13 @@ console.log(long);
 
 //Creating a call to OpenWeatherAPI
 var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + APIkey;
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&units=imperial&appid=" + APIkey;
 
 $.ajax ({
     url: queryURL,
     method: "GET"
 }).then(function(response){
-    console.log(response);
+    // console.log(response);
 var temperature = response.main.temp;
 //Display temperature in top header #weatherText
 $("#weatherText").text(temperature + "°")
