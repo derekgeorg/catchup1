@@ -15,10 +15,13 @@ var thompsonConference = { lat: 30.28715, lng: -97.72910 };
 // Creates a subdirectory 'groups' in root of database 
 var groupsHolderRef = database.ref("/groups");
 var positionRef;
+var bCheckedIn = false;
 
 // A few globals..
 var myName;          // The name of the person on this device
-var myGroup;         // The name of the Catch Up this device is in
+var myGroup;         // The name of the Catch Up this device is in.  In the future when 
+                     // we understand more of how the piblic will actually use this app,
+                     // we can make the mygroup into an array and be in multiple groups.
 
 var nCatchUpAction = nNoAction;
 
@@ -26,18 +29,18 @@ var nNoAction = 0;
 var nUpdateEventPinInfo = 1;
 
     // These are the global variables for the map itself as well as the array of information
-    // about the group we are tracking.
+    // about the group we are tracking - each entry in the arrEvent array will contain the
+    // the Marker for each user.
     var myMap;
     var arrEvent = [];
-    
+
     function initMap() {
 
-        // For now let's just create the map HERE..   We should talk about how we really want to
-        // initialize the map starting point.  Seems like its nice to show something before they
-        // allow us to track their position..  But..  Maybe when they DO join, we should move the
-        // map to their location.
+        // For now let's just create the map HERE..   We start the map at the Class location
+        // but once a user signs in and starts using the app, the map updates to center on
+        // the position of the user signing in.
         myMap = new google.maps.Map( document.getElementById( 'map' ), {
-          // Center the map on our own location.  Well..  Class location..
+          // Center the map on Class location..
           center: thompsonConference,
           zoom: 17
         });
@@ -49,9 +52,22 @@ var nUpdateEventPinInfo = 1;
 
         database.ref( "/groups" ).on( "value", function( snapshot ) {
             if ( nAction == nUpdateEventPinInfo ) {
+
+                // First run through and clear map reference for existing markers.
+                for ( var nLoop = 0; nLoop < arrEvent.length; nLoop++ ) {
+                    if ( typeof arrEvent[ nLoop ].myMarker !== 'undefined' ) {
+                        arrEvent[ nLoop ].myMarker.setMap( null );
+                    }
+                }
+
+                // For each line in the database, see if the member is in our group and, if so,
+                // create a Marker for each person.
                 snapshot.forEach( function( thisMember ) {
                     if ( thisMember.val().groupID === sGroupName ) {
                         var markerPos = { lat: thisMember.val().x, lng: thisMember.val().y };
+
+                        console.log( "Placing marker at: " + thisMember.val().x + ":" + thisMember.val().y );
+
                         var marker = new google.maps.Marker({ title: thisMember.val().name,
                                                               label: thisMember.val().name,
                                                               position: markerPos,
@@ -68,6 +84,7 @@ var nUpdateEventPinInfo = 1;
         });
     }
 
+    // This is called when out timer expires so we can set our position in Firebase.
     function processTimeoutEvent( database, sGroupName ) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var latitude = position.coords.latitude;
@@ -77,7 +94,7 @@ var nUpdateEventPinInfo = 1;
                 // If the user accepted location services, write their name, group, and position in the database.
                 // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
                 // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
-                database.ref("/groups/" + positionRef).set({groupID: myGroup, name: myName, x: latitude, y: longitude});
+                positionRef.set({groupID: myGroup, name: myName, x: latitude, y: longitude});
                 countdown();
             }
             else {
@@ -88,6 +105,7 @@ var nUpdateEventPinInfo = 1;
         });
     }
 
+    // Update our position in the database every 60 seconds.
     function countdown() {
         var seconds = 60;
         function tick() {
@@ -111,52 +129,49 @@ $( document ).ready(function() {
     
     // When clicking the check in button...
     $("#checkIn").on("click", function(e){
-        // Stop the page from reloading
-        e.preventDefault();
+        if ( !bCheckedIn ) {
+            bCheckedIn = true;
+            
+            // Stop the page from reloading
+            e.preventDefault();
 
-        // Take the values from the name field and the group field and assign them to name and group respectively
-        myName = $("#userName").val();
-        myGroup = $("#groupName").val();
-        console.log( "Checkin Name: " + myName );
-        console.log( "Checkin Group: " + myGroup );
-        // Clear out the text field after the input has been gathered
-//        $("userName").val("");
-//        $("input.group").val("");
+            // Take the values from the name field and the group field and assign them to name and group respectively
+            myName = $("#userName").val();
+            myGroup = $("#groupName").val();
+            console.log( "Checkin Name: " + myName );
+            console.log( "Checkin Group: " + myGroup );
 
-//        if (myGroup in localData){
-        if ( false ) {
-            alert("Please pick a different group name. Someone nabbed this one ;]")
-        }
+            // Browser geolocation API asks for permission to get location data.
+            // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
+            navigator.geolocation.getCurrentPosition(function(position) {
 
-        else {
-            // proceed
-//            if (myName in myGroup){
-            if ( false ) {
-                alert("Shucks. There's already a " + myName + " in this group. Pick a different name please")
-            }
-            else{
-                // proceed
-                // Browser geolocation API asks for permission to get location data.
-                // Once accepted, the latitude and longitude can be obtained in the Decimal Degrees unit
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
-                    if ("geolocation" in navigator){
-                        // If the user accepted location services, write their name, group, and position in the database.
-                        // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
-                        // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
-                        positionRef = database.ref("/groups").push({groupID: myGroup, name: myName, x: latitude, y: longitude}).key;
-                        console.log(positionRef);
-                        countdown();
-                    }
-                    else {
-                        // No navigation ability will notify the user
-                        console.log("no navigation ability")
-                        // window.location.replace = "geo.html"
-                    }
-                });
-            }
+                // Now that they are signed in, center the map on their current position.
+                myMap.setCenter( { lat: latitude, lng: longitude } );
+
+                if ("geolocation" in navigator){
+                    // If the user accepted location services, write their name, group, and position in the database.
+                    // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
+                    // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
+                    positionRef = database.ref("/groups").push({groupID: myGroup, name: myName, x: latitude, y: longitude});
+
+                    // Process the event to create the thumb-tack..
+                    processCatchUpEvent( database, myGroup, nUpdateEventPinInfo );
+                    countdown();
+
+                    // Setup a call to take care of cleaning up - removing our line in Firebase - on disconnect..
+                    positionRef.onDisconnect().remove();
+                }
+                else {
+                    // No navigation ability will notify the user
+                    console.log("no navigation ability")
+                    // window.location.replace = "geo.html" - Future enhancement!!
+                }
+            });
+        } else {
+            console.log( "Already checked in!!" );
         }
     });
 
