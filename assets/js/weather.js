@@ -1,5 +1,5 @@
-$(document).ready(function(){
-console.log("map.js linked successful");
+// $(document).ready(function(){
+// console.log("map.js linked successful");
 
 //Get local time using momentjs and display on header
 // var timeNow = (moment().format('MMMM Do YYYY, h:mm:ss a')); 
@@ -10,6 +10,7 @@ console.log("map.js linked successful");
 // }
 // setInterval(clock, 1000);
 
+//Moment JS clock shows current time and interval per sec
 var timeNow = moment()
 $('#timeClock').html(moment(timeNow).format('MMMM Do YYYY, h:mm:ss a'))
 
@@ -38,18 +39,20 @@ console.log(long);
 
 
 //Creating a call to OpenWeatherAPI
-var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + APIkey;
+// var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
+// var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + APIkey;
 
-$.ajax ({
-    url: queryURL,
-    method: "GET"
-}).then(function(response){
-    console.log(response);
-var temperature = response.main.temp;
-//Display temperature in top header #weatherText
-$("#weatherText").text(temperature + "°")
-});
+// $.ajax ({
+//     url: queryURL,
+//     method: "GET"
+// }).then(function(response){
+//     console.log(response);
+// var temperature = response.main.temp;
+// //Display temperature in top header #weatherText
+// $("#weatherText").text(temperature + "°")
+// });
+
+
 $(document).foundation();
 
 //pull temperature based on geographic coordinates provided by location

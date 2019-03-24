@@ -1,3 +1,4 @@
+
 // Bringing in my realtime database credentials to link to the page
 var config = {
     apiKey: "AIzaSyD5oma6kJwXLMHltdeaK78A5eOhL-43xU4",
@@ -126,6 +127,16 @@ var nUpdateEventPinInfo = 1;
 
 $( document ).ready(function() {
 //    var localData = {};
+
+//Moment JS clock shows current time and interval per sec
+var timeNow = moment()
+$('#timeClock').html(moment(timeNow).format('MMMM Do YYYY, h:mm:ss a'))
+
+function clock() {
+    $('#timeClock').html(moment().format('MMMM Do YYYY, h:mm:ss a'))
+}
+
+setInterval(clock, 1000)
     
     // When clicking the check in button...
     $("#checkIn").on("click", function(e){
@@ -148,6 +159,20 @@ $( document ).ready(function() {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
 
+            // OpenWeather API gets temperature based on current location
+                var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=imperial&appid=" + APIkey;
+
+                $.ajax ({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response){
+                    console.log(response);
+                var temperature = response.main.temp;
+                //Display temperature in top header #weatherText
+                $("#weatherText").text(Math.round(temperature) + "°")
+                });
+                
                 // Now that they are signed in, center the map on their current position.
                 myMap.setCenter( { lat: latitude, lng: longitude } );
 
@@ -182,3 +207,4 @@ $( document ).ready(function() {
         processCatchUpEvent( database, myGroup, nUpdateEventPinInfo );
     });
 });
+$(document).foundation();
