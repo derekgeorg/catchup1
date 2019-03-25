@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-$(document).ready(function(){
-=======
 // $(document).ready(function(){
 // console.log("map.js linked successful");
->>>>>>> master
 
 //Get local time using momentjs and display on header
 // var timeNow = (moment().format('MMMM Do YYYY, h:mm:ss a')); 
@@ -43,20 +39,6 @@ function continueExecution(){
 
 
 //Creating a call to OpenWeatherAPI
-<<<<<<< HEAD
-var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&units=imperial&appid=" + APIkey;
-
-$.ajax ({
-    url: queryURL,
-    method: "GET"
-}).then(function(response){
-    // console.log(response);
-var temperature = response.main.temp;
-//Display temperature in top header #weatherText
-$("#weatherText").text(temperature + "°")
-});
-=======
 // var APIkey = "3c64ce1214a3d6f650ffb33e2ae6c445";
 // var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + APIkey;
 
@@ -71,8 +53,7 @@ $("#weatherText").text(temperature + "°")
 // });
 
 
->>>>>>> master
-$(document).foundation();
+// $(document).foundation();
 
 //pull temperature based on geographic coordinates provided by location
 
@@ -112,4 +93,4 @@ $(document).foundation();
 // }
 
 });
-});
+// });
