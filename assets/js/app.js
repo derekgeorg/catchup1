@@ -50,6 +50,8 @@ function initMap() {
 //Based on what group you're in, this function will parse through the database and find the group's data so that
 //it is able to populate the sidebar with members in your group
 function writeSideBar (){
+    $("#m1").empty();
+
     var groupA = $("<a>");
     groupA.attr("href", "#0");
     groupA.attr("id", myGroup);
@@ -76,7 +78,7 @@ function writeSideBar (){
     m3.append(loLi);
 
     for (var i = 0; i < arrEvent.length; i++){
-        if( myGroup === arrEvent[i].groupID){
+        if( myGroup === arrEvent[i].groupID ){
             
             var memberA = $("<a>");
             memberA.attr("href", "#0");
@@ -166,7 +168,7 @@ function processTimeoutEvent( database, sGroupName ) {
 
 // Update our position in the database every 60 seconds.
 function countdown() {
-    var seconds = 60;
+    var seconds = Infinity;
     function tick() {
         seconds--;
         if( seconds > 0 ) {
