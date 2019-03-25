@@ -156,7 +156,7 @@ function processTimeoutEvent( database, sGroupName ) {
             // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
             // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
             positionRef.set({groupID: myGroup, name: myName, x: latitude, y: longitude});
-            countdown();
+            // countdown();
         }
         else {
             // No navigation ability will notify the user
@@ -166,20 +166,20 @@ function processTimeoutEvent( database, sGroupName ) {
     });
 }
 
-// Update our position in the database every 60 seconds.
-function countdown() {
-    var seconds = Infinity;
-    function tick() {
-        seconds--;
-        if( seconds > 0 ) {
-            setTimeout(tick, 1000);
-        } else {
-            processTimeoutEvent( database, myGroup );
-            seconds = 60;
-        }
-    }
-    tick();
-}
+// // Update our position in the database every 60 seconds.
+// function countdown() {
+//     var seconds = Infinity;
+//     function tick() {
+//         seconds--;
+//         if( seconds > 0 ) {
+//             setTimeout(tick, 1000);
+//         } else {
+//             processTimeoutEvent( database, myGroup );
+//             seconds = 60;
+//         }
+//     }
+//     tick();
+// }
 
 
 // This is the initial map creation call..
@@ -247,7 +247,7 @@ setInterval(clock, 1000)
                     // Process the event to create the thumb-tack..
                     processCatchUpEvent( database, myGroup, nUpdateEventPinInfo );
 
-                    countdown();
+                    // countdown();
 
                     // Setup a call to take care of cleaning up - removing our line in Firebase - on disconnect..
                     positionRef.onDisconnect().remove();
