@@ -106,6 +106,10 @@ function processCatchUpEvent( database, sGroupName, nAction ) {
                 }
             }
 
+            // Now that we have removed all references from the markers to the map,
+            // remove our references to the markers so they can be released.
+            arrEvent = [];
+
             // For each line in the database, see if the member is in our group and, if so,
             // create a Marker for each person.
             snapshot.forEach( function( thisMember ) {
@@ -166,20 +170,20 @@ function processTimeoutEvent( database, sGroupName ) {
     });
 }
 
-// // Update our position in the database every 60 seconds.
-// function countdown() {
-//     var seconds = Infinity;
-//     function tick() {
-//         seconds--;
-//         if( seconds > 0 ) {
-//             setTimeout(tick, 1000);
-//         } else {
-//             processTimeoutEvent( database, myGroup );
-//             seconds = 60;
-//         }
-//     }
-//     tick();
-// }
+// Update our position in the database every 60 seconds.
+function countdown() {
+    var seconds = 60;
+    function tick() {
+        seconds--;
+        if( seconds > 0 ) {
+         setTimeout(tick, 1000);
+        } else {
+            processTimeoutEvent( database, myGroup );
+            seconds = 60;
+        }
+    }
+    tick();
+}
 
 
 // This is the initial map creation call..
