@@ -38,7 +38,7 @@ The CatchUp! web application is able to approximate your location utilizing the 
 
 Groups, users and their locations are stored using the Firebase database. 
 
-Our frontend framework is built using Foundation. 
+Our frontend framework is built using Foundation and application is mobile responsive.
 
 #### APIs used: Geolocation; OpenWeather; Google Maps
 #### Technologies used: HTML, CSS, Vanilla Javascript, jQuery, AJAX, APIs, Foundation, Moment.js, Git branching workflow; GitHub deployment; Firebase for persistent data storage; Agile software development
