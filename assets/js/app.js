@@ -128,6 +128,7 @@ var nUpdateEventPinInfo = 1;
 $( document ).ready(function() {
 //    var localData = {};
 
+
 //Moment JS clock shows current time and interval per sec
 var timeNow = moment()
 $('#timeClock').html(moment(timeNow).format('MMMM Do YYYY, h:mm:ss a'))
