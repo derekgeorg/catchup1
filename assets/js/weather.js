@@ -23,16 +23,16 @@ setInterval(clock, 1000)
 
 //Get current coordinates from geolocation
 var lat = null;
-var long = null;
+var lng = null;
 
 navigator.geolocation.getCurrentPosition(function showLocation(position){
     lat = position.coords.latitude;
-    long = position.coords.longitude;
+    lng = position.coords.longitude;
     continueExecution();
 
 function continueExecution(){
-console.log(lat);
-console.log(long);
+// console.log(lat);
+// console.log(long);
 }
 
 
@@ -53,7 +53,7 @@ console.log(long);
 // });
 
 
-$(document).foundation();
+// $(document).foundation();
 
 //pull temperature based on geographic coordinates provided by location
 
@@ -93,4 +93,4 @@ $(document).foundation();
 // }
 
 });
-});
+// });
