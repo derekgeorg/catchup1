@@ -15,8 +15,6 @@ The CatchUp! v1 app was created as Project 1 for The Coding Boot Camp at UT Aust
 | [Nic Pluymen @nicop93](https://www.github.com/nicop93) |       
 | [Derek Georg @derekgeorg](https://www.github.com/derekgeorg)  |
 
-![team](team.png)
-
 ![demo](demo.png)
 
 ## How it Works
